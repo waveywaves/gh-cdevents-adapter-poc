@@ -14,6 +14,8 @@ jobs:
       with:
         go-version: '1.16.1' # The Go version to download (if necessary) and use.
     - name: Dump GitHub context
+      env:
+        GITHUB_CONTEXT: ${{ toJson(github) }}
       run: |
-        "${{ toJson(github) }}" > event.json
         go run gh-cdevents.go
+    
