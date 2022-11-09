@@ -5,12 +5,17 @@ on:
     types: [submitted]
 
 jobs:
-  printJob:    
-    name: Print event
+  sendCDEvent:    
+    name: Send CDEvent
     runs-on: ubuntu-latest
     steps:
+    - uses: actions/checkout@v3
+    - uses: actions/setup-go@v3
+      with:
+        go-version: '1.16.1' # The Go version to download (if necessary) and use.
     - name: Dump GitHub context
       env:
         GITHUB_CONTEXT: ${{ toJson(github) }}
       run: |
-        echo "$GITHUB_CONTEXT"
+        go run gh-cdevents.go
+    
